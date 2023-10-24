@@ -17,7 +17,10 @@ import { Roles } from "../../utils/types";
 router
   .route("/")
   .get(verifyRoles([Roles.ADMIN, Roles.TEACHER]), getAllStudents)
-  .patch(customValidator(Validators.BODY, ["studentId", "bookId"]), updateStudentBook)
+  .patch(
+    customValidator(Validators.BODY, ["studentId", "bookId"]),
+    updateStudentBook
+  )
   .post(
     verifyRoles([Roles.ADMIN, Roles.TEACHER]),
     customValidator(Validators.BODY, ["name", "email"]),

@@ -1,5 +1,4 @@
 import prisma from "../prisma";
-import { availableFilter } from "./book/helpers";
 
 const getAllBooks = async (
   orderColumn: string,
@@ -12,7 +11,7 @@ const getAllBooks = async (
     orderBy: {
       [orderColumn]: orderDirection,
     },
-    where: availableFilter(available),
+    where: available === "true" ? { Student: { none: {} } } : {},
     skip,
     take,
   });
