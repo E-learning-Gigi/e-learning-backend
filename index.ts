@@ -30,4 +30,6 @@ app.use(verifyAccessJWT);
 app.use("/api/students", require("./routes/api/students"));
 app.use("/api/books", require("./routes/api/books"));
 
-app.listen(3000, () => console.log("REST API server running at: http://localhost:3000"));
+app.listen(3000, () =>
+  console.log("REST API server running at: http://localhost:3000")
+);
