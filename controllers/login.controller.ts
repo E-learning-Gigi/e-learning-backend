@@ -2,7 +2,7 @@ import { Request, Response } from "express";
 const bcrypt = require("bcrypt");
 import { generateJWT } from "../utils/helpers";
 import userService from "../services/user.service";
-import { UserFindersKey } from "../utils/adminDto";
+import { UserFindersKey } from "../utils/userDto";
 import {
   ACCESS_TOKEN_DURATION,
   REFRESH_TOKEN_DURATION,

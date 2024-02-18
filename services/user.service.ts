@@ -1,5 +1,5 @@
 import prisma from "../prisma";
-import { UserFindersKey } from "../utils/adminDto";
+import { UserFindersKey } from "../utils/userDto";
 
 const registerUser = async (
   email: string,
@@ -47,7 +47,7 @@ const findAndDeleteRefreshToken = async (
       refreshToken: refreshToken,
     },
     data: {
-      refreshToken: "",
+      refreshToken: null,
     },
   });
   return user;

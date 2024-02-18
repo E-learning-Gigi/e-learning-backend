@@ -1,6 +1,6 @@
 import { Request, Response } from "express";
 import userService from "../services/user.service";
-import { UserFindersKey } from "../utils/adminDto";
+import { UserFindersKey } from "../utils/userDto";
 import { ACCESS_TOKEN_DURATION } from "../utils/types";
 const jwt = require("jsonwebtoken");
 import { generateJWT } from "../utils/helpers";

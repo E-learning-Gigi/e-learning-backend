@@ -1,5 +1,5 @@
 const jwt = require("jsonwebtoken");
-import { GenerateJWT } from "./adminDto";
+import { GenerateJWT } from "./userDto";
 import { NextFunction, Request, Response } from "express";
 import { Validators } from "./validatorDto";
 
