@@ -5,6 +5,8 @@ import {
   addNewBook,
   deleteBook,
   getSingleBook,
+  rentBook,
+  returnBook,
 } from "../../controllers/books.controller";
 import { Validators } from "../../utils/validatorDto";
 import { customValidator } from "../../utils/helpers";
@@ -23,6 +25,26 @@ router
     verifyRoles([Roles.TEACHER, Roles.ADMIN]),
     customValidator(Validators.BODY, ["id"]),
     deleteBook
+  );
+
+router
+  .route("/student/rent")
+  .patch(
+    customValidator(Validators.BODY, [
+      "studentId",
+      "bookId",
+    ]),
+    rentBook
+  );
+
+router
+  .route("/student/return")
+  .patch(
+    customValidator(Validators.BODY, [
+      "bookId",
+      "studentId",
+    ]),
+    returnBook
   );
 
 router

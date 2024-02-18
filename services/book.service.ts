@@ -1,16 +1,17 @@
 import prisma from "../prisma";
+import { stringToBool } from "../utils/helpers";
 
-const getAllBooks = async (query: any) => {
-  if (Object.keys(query).length === 0) {
-    return prisma.book.findMany();
-  } else {
-    if (query.freeBooks === "true") {
-      return prisma.book.findMany({ where: { Student: { none: {} } } });
-    }
-    if (query.freeBooks === "false") {
-      return prisma.book.findMany();
-    }
-  }
+const getAllBooks = async (isTaken: string) => {
+  const queryToBoolean = stringToBool(isTaken);
+
+  return await prisma.book.findMany({
+    where: {
+      ...(queryToBoolean
+        ? { isTaken: queryToBoolean }
+        : {}),
+    },
+    include: { student: true },
+  });
 };
 
 const addNewBook = async (title: string) => {
@@ -37,4 +38,39 @@ const deleteBook = async (id: string) => {
   });
 };
 
-export default { getAllBooks, addNewBook, findBookById, deleteBook };
+const rentBook = async (
+  studentId: string,
+  bookId: string
+) => {
+  return await prisma.book.update({
+    where: {
+      id: bookId,
+    },
+    data: {
+      studentId,
+      isTaken: true,
+    },
+  });
+};
+
+const returnBook = async (
+  bookId: string,
+  studentId: string
+) => {
+  return await prisma.book.update({
+    where: {
+      id: bookId,
+      studentId,
+    },
+    data: { studentId: null, isTaken: false },
+  });
+};
+
+export default {
+  getAllBooks,
+  addNewBook,
+  findBookById,
+  rentBook,
+  deleteBook,
+  returnBook,
+};
