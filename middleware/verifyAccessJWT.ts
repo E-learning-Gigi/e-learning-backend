@@ -17,7 +17,7 @@ export const verifyAccessJWT = (
     (err: any, decoded: any) => {
       if (err)
         return res
-          .status(403)
+          .status(401)
           .json({ message: "Invalid acc token" });
       req.email = decoded.UserInfo.email;
       // Adding role to request!!

@@ -28,7 +28,7 @@ router
   )
   // Delete student
   .delete(
-    verifyRoles([Roles.ADMIN, Roles.TEACHER]),
+    verifyRoles([Roles.ADMIN]),
     customValidator(Validators.BODY, ["id"]),
     userExistsById,
     deleteStudent
@@ -36,11 +36,13 @@ router
 
 router
   .route("/:id")
+  // Get single
   .get(
     customValidator(Validators.PARAMS, ["id"]),
     userExistsById,
     getSingleStudent
   )
+  // Update single
   .patch(
     customValidator(Validators.PARAMS, ["id"]),
     customValidator(Validators.BODY, ["name", "email"]),

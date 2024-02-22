@@ -15,12 +15,15 @@ import { Roles } from "../../utils/types";
 
 router
   .route("/")
+  // Get all books
   .get(getAllBooks)
+  // Create new book
   .post(
     verifyRoles([Roles.TEACHER, Roles.ADMIN]),
     customValidator(Validators.BODY, ["title"]),
     addNewBook
   )
+  // Delete book
   .delete(
     verifyRoles([Roles.TEACHER, Roles.ADMIN]),
     customValidator(Validators.BODY, ["id"]),
@@ -29,6 +32,7 @@ router
 
 router
   .route("/student/rent")
+  // Rent book
   .patch(
     customValidator(Validators.BODY, [
       "studentId",
@@ -39,6 +43,7 @@ router
 
 router
   .route("/student/return")
+  // Return book
   .patch(
     customValidator(Validators.BODY, [
       "bookId",
@@ -49,6 +54,7 @@ router
 
 router
   .route("/:id")
+  // Get single book
   .get(
     verifyRoles([Roles.TEACHER, Roles.ADMIN]),
     customValidator(Validators.PARAMS, ["id"]),

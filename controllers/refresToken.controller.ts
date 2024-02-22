@@ -20,14 +20,14 @@ const handleRefreshToken = async (
     refreshToken
   );
 
-  if (!foundUser) return res.status(403);
+  if (!foundUser) return res.status(401);
 
   jwt.verify(
     refreshToken,
     process.env.REFRESH_TOKEN_SECRET,
     (err: any, decoded: any) => {
       if (err || foundUser.email !== decoded.email)
-        return res.sendStatus(403);
+        return res.sendStatus(401);
 
       const email = foundUser.email;
       const role = foundUser.role;

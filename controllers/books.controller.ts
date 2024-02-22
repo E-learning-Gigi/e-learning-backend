@@ -43,7 +43,7 @@ const getSingleBook = async (
   const bookFounded = await bookService.findBookById(id);
   if (!bookFounded)
     return res
-      .status(403)
+      .status(400)
       .json({ message: "There is no book mathes your id" });
 
   return res.status(201).json(bookFounded);
@@ -63,7 +63,7 @@ const rentBook = async (
 
   if (!foundStudent)
     return res
-      .status(403)
+      .status(400)
       .json({ message: "No student matches your id" });
 
   const book = await bookService.rentBook(

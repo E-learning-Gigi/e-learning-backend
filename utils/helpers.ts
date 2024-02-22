@@ -15,7 +15,7 @@ export const customValidator = (
     for (const field of body) {
       if (!req[validate] || !req[validate][field]) {
         return res
-          .status(403)
+          .status(400)
           .json({ message: `${field} required` });
       }
     }
