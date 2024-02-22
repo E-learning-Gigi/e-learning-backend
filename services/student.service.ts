@@ -1,39 +1,25 @@
 import prisma from "../prisma";
-import { StudentFindersKey, CreateStudent } from "../utils/studentDto";
+import { CreateStudent } from "../utils/studentDto";
 
 const getAllStudents = async () => {
   return prisma.student.findMany();
 };
 
-const getStudentby = async (finder: StudentFindersKey, value: any) => {
+const getStudentbyId = async (id: string) => {
   return await prisma.student.findUnique({
     where: {
-      [finder]: value,
+      id,
+    },
+    include: {
+      books: true,
     },
   });
 };
 
-const getStudentWithBookBy = async (finder: StudentFindersKey, value: any) => {
-  return await prisma.student.findUnique({
-    where: {
-      [finder]: value,
-    },
-    include: { studentBook: true },
-  });
-};
-
-const updateStudentBook = async (studentId: string, bookId: string | null) => {
-  return await prisma.student.update({
-    where: {
-      id: studentId,
-    },
-    data: {
-      studentBookId: bookId,
-    },
-  });
-};
-
-const createNewStudent = async ({ name, email }: CreateStudent) => {
+const createNewStudent = async ({
+  name,
+  email,
+}: CreateStudent) => {
   return await prisma.student.create({
     data: {
       name,
@@ -64,10 +50,8 @@ const updateStudent = async ({ id, name, email }: any) => {
 
 export default {
   getAllStudents,
-  getStudentby,
-  updateStudentBook,
+  getStudentbyId,
   createNewStudent,
   deleteStudent,
-  getStudentWithBookBy,
   updateStudent,
 };

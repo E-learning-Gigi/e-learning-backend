@@ -11,20 +11,21 @@ datasource db {
 }
 
 model Student {
-  id            String  @id @default(uuid())
-  name          String
-  email         String  @unique
-  studentBook   Book?   @relation(fields: [studentBookId], references: [id])
-  studentBookId String?
+  id    String @id @default(uuid())
+  name  String
+  email String @unique
+  books Book[]
 }
 
 model Book {
-  id      String    @id @default(uuid())
-  title   String
-  Student Student[]
+  id        String   @id @default(uuid())
+  title     String
+  student   Student? @relation(fields: [studentId], references: [id])
+  studentId String?
+  isTaken   Boolean  @default(false)
 }
 
-model Admin {
+model User {
   id           String  @id @default(uuid())
   email        String  @unique
   pwd          String

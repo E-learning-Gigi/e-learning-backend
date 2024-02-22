@@ -9,6 +9,8 @@ import credentials from "./middleware/credentials";
 
 const app = express();
 
+const PORT = 4000;
+
 app.use(credentials);
 
 app.use(cors(corsOptions));
@@ -30,6 +32,8 @@ app.use(verifyAccessJWT);
 app.use("/api/students", require("./routes/api/students"));
 app.use("/api/books", require("./routes/api/books"));
 
-app.listen(3000, () =>
-  console.log("REST API server running at: http://localhost:3000")
+app.listen(PORT, () =>
+  console.log(
+    `REST API server running at: http://localhost:${PORT}`
+  )
 );
