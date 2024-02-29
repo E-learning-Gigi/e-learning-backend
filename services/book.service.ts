@@ -1,12 +1,12 @@
 import prisma from "../prisma";
 import { stringToBool } from "../utils/helpers";
 
-const getAllBooks = async (isTaken: string) => {
+const getAllBooks = async (isTaken?: string) => {
   const queryToBoolean = stringToBool(isTaken);
 
   return await prisma.book.findMany({
     where: {
-      ...(queryToBoolean
+      ...(typeof queryToBoolean === "boolean"
         ? { isTaken: queryToBoolean }
         : {}),
     },

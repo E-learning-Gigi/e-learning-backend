@@ -38,7 +38,7 @@ export const generateJWT = ({
   return token;
 };
 
-export const stringToBool = (value: string) => {
+export const stringToBool = (value?: string) => {
   return value === "true"
     ? true
     : value === "false"
