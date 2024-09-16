@@ -28,12 +28,10 @@ app.use("/logout", require("./routes/logout"));
 app.use("/refresh", require("./routes/refresh"));
 
 // API ROUTES
-app.use(verifyAccessJWT);
+// app.use(verifyAccessJWT);
 app.use("/api/students", require("./routes/api/students"));
 app.use("/api/books", require("./routes/api/books"));
 
 app.listen(PORT, () =>
-  console.log(
-    `REST API server running at: http://localhost:${PORT}`
-  )
+  console.log(`REST API server running at: http://localhost:${PORT}`)
 );

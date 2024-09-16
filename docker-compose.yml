@@ -1,14 +1,13 @@
-version: '3.3'
+version: '3.7'
+
 services:
   postgres:
-    image: postgres:10.3
+    image: postgres:15
+    container_name: e-learning-server
     restart: always
     environment:
-      - POSTGRES_USER=sammy
-      - POSTGRES_PASSWORD=your_password
-    volumes:
-      - postgres:/var/lib/postgresql/data
+      - POSTGRES_USER=e-learning
+      - POSTGRES_PASSWORD=e-learning
+      - POSTGRES_DB=e-learning-db
     ports:
-      - '5434:5432'
-volumes:
-  postgres:
+      - '5438:5432'
