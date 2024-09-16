@@ -4,8 +4,10 @@
   "description": "",
   "main": "index.js",
   "scripts": {
+    "prisma:migrate": "npx prisma migrate dev",
     "dev": "npx nodemon index.ts",
-    "prisma:migrate": "npx prisma migrate dev"
+    "start:prod": "node dist/server.js",
+    "build": "npx tsc"
   },
   "keywords": [],
   "author": "",
