@@ -3,21 +3,15 @@ const bcrypt = require("bcrypt");
 import { generateJWT } from "../utils/helpers";
 import userService from "../services/user.service";
 import { UserFindersKey } from "../utils/userDto";
-import {
-  ACCESS_TOKEN_DURATION,
-  REFRESH_TOKEN_DURATION,
-} from "../utils/types";
+import { ACCESS_TOKEN_DURATION, REFRESH_TOKEN_DURATION } from "../utils/types";
 
 const handleLogin = async (
   { body: { email, pwd } }: Request,
   res: Response
 ) => {
   // Find user
-  const user = await userService.findUserBy(
-    UserFindersKey.EMAIL,
-    email
-  );
-  // Unauthorized
+  const user = await userService.findUserBy(UserFindersKey.EMAIL, email);
+  // Unauthenticate
   if (!user) return res.sendStatus(401);
   // Check match
   const match = await bcrypt.compare(pwd, user.pwd);
@@ -41,10 +35,7 @@ const handleLogin = async (
       tokenDuration: REFRESH_TOKEN_DURATION,
     });
     // Update user
-    await userService.findAndUpdateRefreshToken(
-      email,
-      refreshToken
-    );
+    await userService.findAndUpdateRefreshToken(email, refreshToken);
 
     res.cookie("jwt", refreshToken, {
       httpOnly: true,
